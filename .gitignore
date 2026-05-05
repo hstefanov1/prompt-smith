@@ -1,0 +1,36 @@
+# StefShield Node & JS/TS .gitignore
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+out/
+.next/
+
+# Logs
+*.log
+logs/
+
+# Environment variables (secrets)
+.env
+.env.*
+!.env.example
+
+# Caches
+.cache/
+.eslintcache
+*.tsbuildinfo
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# OS / Editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.tmp
