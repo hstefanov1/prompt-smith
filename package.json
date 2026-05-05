@@ -1,0 +1,11 @@
+{
+  "name": "prompt-smith",
+  "version": "1.0.0",
+  "description": "A toolkit for engineering, versioning, and evaluating prompts with Claude.",
+  "module": "src/index.js",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "license": "MIT"
+}

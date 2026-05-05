@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "prompt": "Explain quantum computing in simple terms.",
+  "score": 6,
+  "passed": false,
+  "goals": [
+    { "goal": "The response must be under 100 words", "score": 8 },
+    { "goal": "The response must not use technical jargon", "score": 4 }
+  ]
+}
