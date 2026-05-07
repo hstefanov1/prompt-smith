@@ -4,8 +4,8 @@ A toolkit for engineering, versioning, and evaluating prompts with Claude.
 
 ## Requirements
 
-- [Bun v1.3 or higher](https://bun.sh/)
-- [Anthropic API key](https://console.anthropic.com/)
+- Bun v1.3 or higher — [https://bun.sh/](https://bun.sh/)
+- Anthropic API key — [https://console.anthropic.com/](https://console.anthropic.com/)
 
 ## Quick Start
 
@@ -22,16 +22,19 @@ prompt-smith/
 │   ├── assistant.js          # Claude assistant
 │   ├── constants.js          # App-wide constants
 │   ├── evals/
-│       └── runner.js         # Eval logic
-│       └── writer.js         # Result writer
+│   │   └── runner.js         # Eval logic
+│   │   └── writer.js         # Result writer
 │   └── utils/
 │       └── log.js            # Utilities for printing messages to stdout and stderr
+├── tests/
+│   └── evals/
+│       └── runner.test.js
 ├── prompts/
 │   └── quantum-explanation-v1.json   # Prompt + goals definition
 ├── results/
 │   └── quantum-explanation-v1.json   # Saved results
 ├── package.json
-├── smith-start.sh            # Run a prompt suite
+├── smith-run.sh              # Run a prompt suite
 ├── smith-debug.sh            # Debug a prompt suite
 ├── smith-utils.sh            # Shared utilities
 ├── .env                      # API key
@@ -81,17 +84,17 @@ Add your prompt file to `prompts/`, then run the suite by passing the prompt fil
 If `[suite]` is not provided, the script will prompt you to choose from available suites.
 
 ```bash
-# Run a suite
-./smith-start.sh [suite]
+./smith-run.sh   # Prompt you to choose to run a prompt suite
+./smith-debug.sh # Prompt you to choose to debug a prompt suite
 
-# Debug a suite
-./smith-debug.sh [suite]
+./smith-run.sh   [suite] # Run a specific prompt suite
+./smith-debug.sh [suite] # Debug a specific prompt suite
 ```
 
 Example:
 
 ```bash
-./smith-start.sh quantum-explanation-v1.json
+./smith-run.sh quantum-explanation-v1.json
 ./smith-debug.sh quantum-explanation-v1.json
 ```
 
