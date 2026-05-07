@@ -16,7 +16,11 @@ if (suiteFile.size > 10240) {
   error(`suite file is too large (${kbSize}KB), please reduce it to under 10KB`);
 }
 
-const suite = await suiteFile.json();
-log(`version..: ${suite.version}`);
-log(`prompt...: ${suite.prompt}`);
-log(`goals....: ${suite.goals.length}`);
+try {
+  const suite = await suiteFile.json();
+  log(`version..: ${suite.version}`);
+  log(`prompt...: ${suite.prompt}`);
+  log(`goals....: ${suite.goals.length}`);
+} catch (e) {
+  error(`suite file is invalid json \"${suiteFile.name}\"`);
+}
