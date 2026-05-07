@@ -10,7 +10,7 @@ A toolkit for engineering, versioning, and evaluating prompts with Claude.
 ## Quick Start
 
 ```bash
-bun install
+bun run verify # Install dependencies and run tests
 ```
 
 ## Project Structure

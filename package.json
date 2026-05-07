@@ -4,7 +4,9 @@
   "description": "A toolkit for engineering, versioning, and evaluating prompts with Claude.",
   "module": "src/index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "verify": "bun install && bun test"
+  },
   "dependencies": {},
   "devDependencies": {},
   "license": "MIT"
