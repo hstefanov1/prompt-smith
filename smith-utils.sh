@@ -11,7 +11,6 @@ RESULTS_DIR="results"
 
 # Suite selection
 SUITE_NAME="$1"
-SUITE_PATH="$PROMPTS_DIR/$SUITE_NAME"
 
 ENTRY_POINT="src/index.js"
 
@@ -110,7 +109,7 @@ check_dependencies() {
   if [[ ! "$SUITE_NAME" ]]; then
     yellow "not provided"
     choose_suite
-  elif [[ ! -f "$SUITE_PATH" ]]; then
+  elif [[ ! -f "$PROMPTS_DIR/$SUITE_NAME" ]]; then
     yellow "$SUITE_NAME (not found)"
     choose_suite
   else
@@ -125,7 +124,6 @@ choose_suite() {
   select suite in *.json; do
     if [[ -n "$suite" ]]; then
       SUITE_NAME=$(basename "$suite")
-      SUITE_PATH="$PROMPTS_DIR/$SUITE_NAME"
       cd "$ROOT_DIR"
       break
     fi

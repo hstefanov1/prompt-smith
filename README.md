@@ -19,7 +19,11 @@ bun install
 prompt-smith/
 ├── src/
 │   ├── index.js              # Entry point / main loop
+│   ├── assistant.js          # Claude assistant
+│   ├── constants.js          # App-wide constants
 │   ├── evals/
+│       └── runner.js         # Eval logic
+│       └── writer.js         # Result writer
 │   └── utils/
 │       └── log.js            # Utilities for printing messages to stdout and stderr
 ├── prompts/
