@@ -13,39 +13,9 @@ A toolkit for engineering, versioning, and evaluating prompts with Claude.
 bun run verify # Install dependencies and run tests
 ```
 
-## Project Structure
-
-```bash
-prompt-smith/
-├── src/
-│   ├── index.js              # Entry point / main loop
-│   ├── assistant.js          # Claude assistant
-│   ├── constants.js          # App-wide constants
-│   ├── evals/
-│   │   └── runner.js         # Eval logic
-│   │   └── writer.js         # Result writer
-│   └── utils/
-│       └── log.js            # Utilities for printing messages to stdout and stderr
-├── tests/
-│   └── evals/
-│       └── runner.test.js
-├── prompts/
-│   └── quantum-explanation-v1.json   # Prompt + goals definition
-├── results/
-│   └── quantum-explanation-v1.json   # Saved results
-├── package.json
-├── smith-run.sh              # Run a prompt suite
-├── smith-debug.sh            # Debug a prompt suite
-├── smith-utils.sh            # Shared utilities
-├── .env                      # API key
-├── .gitignore
-├── LICENSE
-└── README.md
-```
-
 ### `prompts/`
 
-Each file is a `.json` that contains the prompt itself and the list of goals it must achieve. This is your starting point — define your prompt and what success looks like before running any eval.
+Each file in this directory is a `.json` that contains the prompt itself and the list of goals it must achieve. This is your starting point — define your prompt and what success looks like before running any eval.
 
 Each iteration of a prompt is saved as a new file (`v1`, `v2`, `v3`...), with the version also reflected inside the file. The goals stay the same across versions. Only the prompt changes as you refine it.
 
@@ -62,7 +32,7 @@ Each iteration of a prompt is saved as a new file (`v1`, `v2`, `v3`...), with th
 
 ### `results/`
 
-Saved output from a completed eval run. Each result file mirrors its prompt version by name (e.g. `prompts/quantum-explanation-v1.json` → `results/quantum-explanation-v1.json`), so you can always trace back which prompt produced which result and compare them over time.
+Each file in this directory is a `.json` that contains the result of an eval run. Each result file mirrors its prompt version by name (e.g. `prompts/quantum-explanation-v1.json` → `results/quantum-explanation-v1.json`), so you can always trace back which prompt produced which result and compare them over time.
 
 ```json
 {
@@ -84,11 +54,11 @@ Add your prompt file to `prompts/`, then run the suite by passing the prompt fil
 If `[suite]` is not provided, the script will prompt you to choose from available suites.
 
 ```bash
-./smith-run.sh   # Prompt you to choose to run a prompt suite
-./smith-debug.sh # Prompt you to choose to debug a prompt suite
+./smith-run.sh   # Prompt you to choose a suite to run
+./smith-debug.sh # Prompt you to choose a suite to debug
 
-./smith-run.sh   [suite] # Run a specific prompt suite
-./smith-debug.sh [suite] # Debug a specific prompt suite
+./smith-run.sh   [suite] # Run a specific suite
+./smith-debug.sh [suite] # Debug a specific suite
 ```
 
 Example:
