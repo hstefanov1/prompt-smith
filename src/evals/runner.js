@@ -1,5 +1,5 @@
 // Eval logic
-import { writeResult } from "./writer";
+import {} from "./writer";
 
 export function getResultVersion(version) {
   if (version === undefined) {
@@ -28,5 +28,5 @@ export async function runEval(suiteName, suiteSpec) {
   const resPassed = false;
   const resGoals = suiteSpec.goals;
   const resName = getResultName(suiteName, resVersion);
-  writeResult(resVersion, resPrompt, resScore, resPassed, resGoals, resName);
+  //writeResult(resVersion, resPrompt, resScore, resPassed, resGoals, resName);
 }
