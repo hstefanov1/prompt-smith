@@ -1,6 +1,6 @@
 // Result writer
 import { start, done } from "../utils/printer";
-import { RESULTS_DIR } from "../constants";
+import * as cons from "../constants";
 
 export function build(version, prompt, score, passed, goals) {
   start("result-building");
@@ -56,7 +56,7 @@ export async function write(filename, content) {
   if (!filename || filename.trim() === "") {
     throw new Error("Filename is required");
   }
-  const path = `${RESULTS_DIR}/${filename}`;
+  const path = `${cons.RESULTS_DIR}/${filename}`;
 
   if (!content || content.length === 0) {
     throw new Error(`Nothing to write to \"${path}\" (content empty)`);
