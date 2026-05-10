@@ -2,8 +2,8 @@
 import { start, done } from "../utils/printer";
 import { RESULTS_DIR } from "../constants";
 
-export function buildPayload(version, prompt, score, passed, goals) {
-  start("building");
+export function build(version, prompt, score, passed, goals) {
+  start("result-building");
 
   // validate required fields
   if (!prompt || prompt.trim() === "") {
@@ -32,7 +32,7 @@ export function buildPayload(version, prompt, score, passed, goals) {
 }
 
 export function serialize(payload) {
-  start("serializing");
+  start("result-serializing");
 
   if (!payload) {
     throw new Error("Payload is required");
@@ -44,7 +44,7 @@ export function serialize(payload) {
 }
 
 export async function write(filename, content) {
-  start("exporting");
+  start("result-writing");
 
   if (!filename || filename.trim() === "") {
     throw new Error("Filename is required");
