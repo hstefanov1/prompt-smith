@@ -26,4 +26,8 @@ try {
   error(`suite file is invalid json \"${suiteFile.name}\"`);
 }
 
-await runEval(suiteName, suiteSpec);
+try {
+  await runEval(suiteName, suiteSpec);
+} catch (e) {
+  error(e.message);
+}
