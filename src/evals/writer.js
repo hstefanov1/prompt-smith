@@ -5,20 +5,27 @@ import { RESULTS_DIR } from "../constants";
 export function build(version, prompt, score, passed, goals) {
   start("result-building");
 
-  // validate required fields
-  if (!prompt || prompt.trim() === "") {
-    throw new Error("Prompt is required");
-  }
+  // validate result fields
   if (score === undefined) {
     throw new Error("Score is required");
   } else if (isNaN(score)) {
     throw new Error(`Score must be a number but is \"${score}\"`);
   }
 
-  // normalize goals to an array, defaulting to an empty array if undefined
-  const normalizedGoals = goals ?? [];
-  if (!Array.isArray(normalizedGoals)) {
-    throw new Error("Goals must be an array");
+  if (passed === undefined) {
+    throw new Error("Passed is required");
+  } else if (typeof passed !== "boolean") {
+    throw new Error(`Passed must be a boolean but is \"${passed}\"`);
+  }
+
+  for (const obj of goals) {
+    const goal = obj.goal;
+    const score = obj.score;
+    if (!score || isNaN(score)) {
+      throw new Error(`Goal "${goal}" is missing a valid score`);
+    } else if (score < 0 || score > 10) {
+      throw new Error(`Goal "${goal}" score must be between 0 and 10 but is ${score}`);
+    }
   }
 
   done();
@@ -27,7 +34,7 @@ export function build(version, prompt, score, passed, goals) {
     prompt,
     score,
     passed,
-    goals: normalizedGoals,
+    goals: goals,
   };
 }
 
