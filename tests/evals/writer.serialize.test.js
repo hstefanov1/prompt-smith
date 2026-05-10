@@ -3,7 +3,7 @@ import { serialize } from "../../src/evals/writer.js";
 
 describe("serialize", () => {
   test("with no payload", () => {
-    expect(() => serialize(undefined)).toThrow("payload is required");
+    expect(() => serialize(undefined)).toThrow("Payload is required");
   });
 
   test("with payload", () => {

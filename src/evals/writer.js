@@ -4,18 +4,18 @@ import { RESULTS_DIR } from "../constants.js";
 export function buildPayload(version, prompt, score, passed, goals) {
   // validate required fields
   if (!prompt || prompt.trim() === "") {
-    throw new Error("prompt is required");
+    throw new Error("Prompt is required");
   }
   if (score === undefined) {
-    throw new Error("score is required");
+    throw new Error("Score is required");
   } else if (isNaN(score)) {
-    throw new Error("score must be a number");
+    throw new Error(`Score must be a number but is \"${score}\"`);
   }
 
   // normalize goals to an array, defaulting to an empty array if undefined
   const normalizedGoals = goals ?? [];
   if (!Array.isArray(normalizedGoals)) {
-    throw new Error("goals must be an array");
+    throw new Error("Goals must be an array");
   }
 
   return {
@@ -29,27 +29,27 @@ export function buildPayload(version, prompt, score, passed, goals) {
 
 export function serialize(payload) {
   if (!payload) {
-    throw new Error("payload is required");
+    throw new Error("Payload is required");
   }
   return JSON.stringify(payload, null, 2);
 }
 
 export async function write(filename, content) {
   if (!filename || filename.trim() === "") {
-    throw new Error("filename is required");
+    throw new Error("Filename is required");
   }
+  const path = `${RESULTS_DIR}/${filename}`;
 
   if (!content || content.length === 0) {
-    throw new Error("content is required");
+    throw new Error(`Nothing to write to \"${path}\" (content empty)`);
   }
 
-  const path = `${RESULTS_DIR}/${filename}`;
   if (await Bun.file(path).exists()) {
-    throw new Error(`Result file already exists \"${filename}\"`);
+    throw new Error(`File \"${path}\" already exists`);
   }
 
   const bytes = await Bun.write(path, content);
   if (bytes === 0) {
-    throw new Error(`Failed to write result file \"${filename}\"`);
+    throw new Error(`File \"${path}\" writing failed`);
   }
 }

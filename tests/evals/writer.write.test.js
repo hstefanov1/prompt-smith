@@ -3,12 +3,14 @@ import { write } from "../../src/evals/writer.js";
 
 describe("write", () => {
   test("with no filename", () => {
-    expect(() => write(undefined, "myContent")).toThrow("filename is required");
-    expect(() => write(" ", "myContent")).toThrow("filename is required");
+    const errorMessage = "Filename is required";
+    expect(() => write(undefined, "myContent")).toThrow(errorMessage);
+    expect(() => write(" ", "myContent")).toThrow(errorMessage);
   });
 
   test("with no content", () => {
-    expect(() => write("myFilename", undefined)).toThrow("content is required");
-    expect(() => write("myFilename", "")).toThrow("content is required");
+    const errorMessage = 'Nothing to write to "results/myFilename" (content empty)';
+    expect(() => write("myFilename", undefined)).toThrow(errorMessage);
+    expect(() => write("myFilename", "")).toThrow(errorMessage);
   });
 });

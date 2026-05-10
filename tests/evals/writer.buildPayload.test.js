@@ -3,22 +3,22 @@ import { buildPayload } from "../../src/evals/writer.js";
 
 describe("buildPayload", () => {
   test("with no prompt", () => {
-    expect(() => buildPayload(1, undefined, 1, true, undefined)).toThrow("prompt is required");
-    expect(() => buildPayload(1, " ", 1, true, undefined)).toThrow("prompt is required");
+    const errorMessage = "Prompt is required";
+    expect(() => buildPayload(1, undefined, 1, true, undefined)).toThrow(errorMessage);
+    expect(() => buildPayload(1, " ", 1, true, undefined)).toThrow(errorMessage);
   });
 
   test("with no score score", () => {
-    expect(() => buildPayload(1, "prompt", undefined, true, undefined)).toThrow(
-      "score is required",
-    );
+    // prettier-ignore
+    expect(() => buildPayload(1, "prompt", undefined, true, undefined)).toThrow("Score is required",);
 
     // prettier-ignore
-    expect(() => buildPayload(1, "prompt", "aNanValue", true, undefined)).toThrow("score must be a number");
+    expect(() => buildPayload(1, "prompt", "aNanValue", true, undefined)).toThrow('Score must be a number but is "aNanValue"');
   });
 
   test("with no goals", () => {
     // prettier-ignore
-    expect(() => buildPayload(1, "prompt", 1, true, { myKey: "myValue" })).toThrow("goals must be an array");
+    expect(() => buildPayload(1, "prompt", 1, true, { myKey: "myValue" })).toThrow("Goals must be an array");
 
     expect(buildPayload(1, "prompt", 1, true, undefined)).toEqual({
       version: 1,
