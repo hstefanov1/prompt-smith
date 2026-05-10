@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import { buildPayload } from "../../src/evals/writer.js";
+import { buildPayload } from "../../src/evals/writer";
 
 describe("buildPayload", () => {
   test("with no prompt", () => {

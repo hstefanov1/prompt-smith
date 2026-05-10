@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import { getResultVersion } from "../../src/evals/runner.js";
+import { getResultVersion } from "../../src/evals/runner";
 
 describe("getResultVersion", () => {
   test("with undefined", () => {

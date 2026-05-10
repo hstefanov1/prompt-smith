@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import { write } from "../../src/evals/writer.js";
+import { write } from "../../src/evals/writer";
 
 describe("write", () => {
   test("with no filename", () => {

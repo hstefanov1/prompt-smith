@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import { getResultName } from "../../src/evals/runner.js";
+import { getResultName } from "../../src/evals/runner";
 
 describe("getResultName", () => {
   test("matching existing version", () => {
