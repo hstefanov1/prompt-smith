@@ -1,7 +1,10 @@
 // Result writer
-import { RESULTS_DIR } from "../constants.js";
+import { start, done } from "../utils/printer";
+import { RESULTS_DIR } from "../constants";
 
 export function buildPayload(version, prompt, score, passed, goals) {
+  start("building");
+
   // validate required fields
   if (!prompt || prompt.trim() === "") {
     throw new Error("Prompt is required");
@@ -18,6 +21,7 @@ export function buildPayload(version, prompt, score, passed, goals) {
     throw new Error("Goals must be an array");
   }
 
+  done();
   return {
     version,
     prompt,
@@ -28,13 +32,20 @@ export function buildPayload(version, prompt, score, passed, goals) {
 }
 
 export function serialize(payload) {
+  start("serializing");
+
   if (!payload) {
     throw new Error("Payload is required");
   }
-  return JSON.stringify(payload, null, 2);
+  const result = JSON.stringify(payload, null, 2);
+
+  done();
+  return result;
 }
 
 export async function write(filename, content) {
+  start("exporting");
+
   if (!filename || filename.trim() === "") {
     throw new Error("Filename is required");
   }
@@ -52,4 +63,6 @@ export async function write(filename, content) {
   if (bytes === 0) {
     throw new Error(`File \"${path}\" writing failed`);
   }
+
+  done();
 }
