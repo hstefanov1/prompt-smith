@@ -1,6 +1,6 @@
 // Entry point to the prompt-smith CLI
 import { fail } from "./utils/printer";
-import { runEval } from "./evals/runner";
+import { run } from "./evals/runner";
 import { PROMPTS_DIR, SUITE_FILE_MAX_SIZE } from "./constants";
 
 const suiteName = process.argv[2];
@@ -27,7 +27,7 @@ try {
 }
 
 try {
-  await runEval(suiteName, suiteSpec);
+  await run(suiteName, suiteSpec);
 } catch (e) {
   fail(e.message);
 }
