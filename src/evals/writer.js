@@ -27,7 +27,7 @@ export function buildPayload(version, prompt, score, passed, goals) {
   };
 }
 
-export function serialie(payload) {
+export function serialize(payload) {
   if (!payload) {
     throw new Error("payload is required");
   }
