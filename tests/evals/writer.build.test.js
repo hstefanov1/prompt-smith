@@ -18,25 +18,25 @@ describe("build", () => {
 
   test("with no goal score", () => {
     expect(() => build(1, "prompt", 1, true, [{ goal: "myGoal" }])).toThrow(
-      'Goal "myGoal" is missing a valid score',
+      '"myGoal" goal is missing a valid score',
     );
   });
 
   test("with invalid goal score", () => {
     const goalsWithInvalidScore = [{ goal: "myGoal", score: "any" }];
     expect(() => build(1, "prompt", 1, true, goalsWithInvalidScore)).toThrow(
-      'Goal "myGoal" is missing a valid score',
+      '"myGoal" goal is missing a valid score',
     );
   });
 
   test("with out of range goal score", () => {
     const goalsWithInvalidScore1 = [{ goal: "myGoal", score: -1 }];
     expect(() => build(1, "prompt", 1, true, goalsWithInvalidScore1)).toThrow(
-      'Goal "myGoal" score must be between 0 and 10 but is -1',
+      '"myGoal" goal score must be between 0 and 10 but is -1',
     );
     const goalsWithInvalidScore2 = [{ goal: "myGoal", score: 11 }];
     expect(() => build(1, "prompt", 1, true, goalsWithInvalidScore2)).toThrow(
-      'Goal "myGoal" score must be between 0 and 10 but is 11',
+      '"myGoal" goal score must be between 0 and 10 but is 11',
     );
   });
 

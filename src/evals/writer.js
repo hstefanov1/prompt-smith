@@ -22,9 +22,9 @@ export function build(version, prompt, score, passed, goals) {
     const goal = obj.goal;
     const score = obj.score;
     if (!score || isNaN(score)) {
-      throw new Error(`Goal "${goal}" is missing a valid score`);
+      throw new Error(`"${goal}" goal is missing a valid score`);
     } else if (score < 0 || score > 10) {
-      throw new Error(`Goal "${goal}" score must be between 0 and 10 but is ${score}`);
+      throw new Error(`"${goal}" goal score must be between 0 and 10 but is ${score}`);
     }
   }
 
