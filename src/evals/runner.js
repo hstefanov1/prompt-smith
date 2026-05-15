@@ -13,4 +13,6 @@ export async function run(suiteName, suiteSpec) {
   const payload = writer.build(resVersion, resPrompt, resScore, resPassed, resGoals);
   const serialized = writer.serialize(payload);
   await writer.write(resFilename, serialized);
+
+  return resFilename;
 }
