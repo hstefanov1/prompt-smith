@@ -8,6 +8,9 @@ try {
   const suiteName = process.argv[2];
   await validator.validateSuiteName(suiteName);
 
+  const suiteResult = Bun.file(`${cons.RESULTS_DIR}/${suiteName}`);
+  await validator.validateSuiteHasNoResultFile(suiteResult)
+
   const suiteFile = Bun.file(`${cons.PROMPTS_DIR}/${suiteName}`);
   await validator.validateSuiteFile(suiteFile);
   await validator.validateSuiteFileSize(suiteFile, cons.SUITE_FILE_MAX_SIZE);

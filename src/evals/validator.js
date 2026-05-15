@@ -4,6 +4,13 @@ export async function validateSuiteName(name) {
     throw new Error("No suite specified");
   }
 }
+
+export async function validateSuiteHasNoResultFile(file) {
+  if (file && await file.exists()) {
+    throw new Error(`Result file already exists \"${file.name}\"`);
+  }
+}
+
 export async function validateSuiteFile(file) {
   if (!file || !(await file.exists())) {
     throw new Error(`Suite file not found \"${file?.name}\"`);

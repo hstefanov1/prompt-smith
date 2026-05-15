@@ -27,6 +27,32 @@ describe("validateSuiteFile", () => {
   });
 });
 
+describe("validateSuiteHasNoResultFile", () => {
+  test("with no existing file", async () => {
+    await expect(validator.validateSuiteHasNoResultFile(undefined)).resolves.toBeUndefined();
+
+    const mockFile = {
+      name: "myMockFile",
+      exists: async () => {
+        return false;
+      },
+    };
+    await expect(validator.validateSuiteHasNoResultFile(mockFile)).resolves.toBeUndefined();
+  });
+
+  test("with existing file", async () => {
+    const mockFile = {
+      name: "myMockFile",
+      exists: async () => {
+        return true;
+      },
+    };
+    await expect(validator.validateSuiteHasNoResultFile(mockFile)).rejects.toThrow(
+      'Result file already exists "myMockFile"',
+    );
+  });
+});
+
 describe("validateSuiteFileSize", () => {
   test("when file is bigger than max size", async () => {
     await expect(validator.validateSuiteFileSize({ size: 2 * 1024 }, 1 * 1024)).rejects.toThrow(
