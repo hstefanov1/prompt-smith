@@ -8,6 +8,6 @@ export function action(message) {
   return action;
 }
 
-export function refine() {
-  return action("[r]efine and evaluate again or [e]xit") === "r";
+export function isNeedRefinement() {
+  return action("\n[r]efine and evaluate again or [e]xit") === "r";
 }
