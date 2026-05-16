@@ -1,45 +1,8 @@
 // Result writer
 import { start, done } from "../utils/printer";
-import * as cons from "../constants";
-
-export function build(version, prompt, score, passed, goals) {
-  start("result-building");
-
-  // validate result fields
-  if (score === undefined) {
-    throw new Error("Score is required");
-  } else if (isNaN(score)) {
-    throw new Error(`Score must be a number but is \"${score}\"`);
-  }
-
-  if (passed === undefined) {
-    throw new Error("Passed is required");
-  } else if (typeof passed !== "boolean") {
-    throw new Error(`Passed must be a boolean but is \"${passed}\"`);
-  }
-
-  for (const obj of goals) {
-    const goal = obj.goal;
-    const score = obj.score;
-    if (!score || isNaN(score)) {
-      throw new Error(`"${goal}" goal is missing a valid score`);
-    } else if (score < 0 || score > 10) {
-      throw new Error(`"${goal}" goal score must be between 0 and 10 but is ${score}`);
-    }
-  }
-
-  done();
-  return {
-    version,
-    prompt,
-    score,
-    passed,
-    goals: goals,
-  };
-}
 
 export function serialize(payload) {
-  start("result-serializing");
+  start("serialize-payload");
 
   if (!payload) {
     throw new Error("Payload is required");
@@ -50,13 +13,12 @@ export function serialize(payload) {
   return result;
 }
 
-export async function write(filename, content) {
-  start("result-writing");
+export async function write(path, content) {
+  start("write-file");
 
-  if (!filename || filename.trim() === "") {
-    throw new Error("Filename is required");
+  if (!path || path.trim() === "") {
+    throw new Error("File path is required");
   }
-  const path = `${cons.RESULTS_DIR}/${filename}`;
 
   if (!content || content.length === 0) {
     throw new Error(`Nothing to write to \"${path}\" (content empty)`);

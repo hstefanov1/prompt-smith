@@ -7,7 +7,7 @@ export async function validateSuiteName(name) {
 
 export async function validateSuiteHasNoResultFile(file) {
   if (file && await file.exists()) {
-    throw new Error(`Result file already exists \"${file.name}\"`);
+    throw new Error(`File already exists \"${file.name}\"`);
   }
 }
 

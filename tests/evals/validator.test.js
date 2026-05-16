@@ -48,7 +48,7 @@ describe("validateSuiteHasNoResultFile", () => {
       },
     };
     await expect(validator.validateSuiteHasNoResultFile(mockFile)).rejects.toThrow(
-      'Result file already exists "myMockFile"',
+      'File already exists "myMockFile"',
     );
   });
 });
