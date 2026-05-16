@@ -31,3 +31,8 @@ export function fail(text) {
   console.error(`\nERROR: ${text}\n`);
   process.exit(1);
 }
+
+export function info(title, text) {
+  start(title);
+  done(text);
+}

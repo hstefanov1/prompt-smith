@@ -1,23 +1,29 @@
 // Suite validator
-export async function validateSuiteName(name) {
-  if (!name || name.trim() === "") {
+import * as cons from "../constants";
+
+export async function validateSuiteHasNoResultFile(suiteName) {
+  const file = Bun.file(`${cons.RESULTS_DIR}/${suiteName}`);
+  if (await file.exists()) {
+    throw new Error(`Suite "${suiteName}" already evaluated`);
+  }
+}
+
+export async function validateSuiteName(suiteName) {
+  if (!suiteName || suiteName.trim() === "") {
     throw new Error("No suite specified");
   }
 }
 
-export async function validateSuiteHasNoResultFile(file) {
-  if (file && await file.exists()) {
-    throw new Error(`File already exists \"${file.name}\"`);
-  }
-}
-
-export async function validateSuiteFile(file) {
+export async function validateSuiteFile(suiteName) {
+  const file = Bun.file(`${cons.PROMPTS_DIR}/${suiteName}`);
   if (!file || !(await file.exists())) {
-    throw new Error(`Suite file not found \"${file?.name}\"`);
+    throw new Error(`Suite not found "${suiteName}"`);
   }
 }
 
-export async function validateSuiteFileSize(file, maxSizeAllowed) {
+export async function validateSuiteSize(suiteName) {
+  const file = Bun.file(`${cons.RESULTS_DIR}/${suiteName}`);
+  const maxSizeAllowed = cons.SUITE_FILE_MAX_SIZE;
   if (file.size > maxSizeAllowed) {
     const currSize = Math.round(file.size / 1024);
     const maxSize = Math.round(maxSizeAllowed / 1024);
@@ -25,15 +31,16 @@ export async function validateSuiteFileSize(file, maxSizeAllowed) {
   }
 }
 
-export async function validateSuiteSpec(file) {
+export async function validateSuiteSpec(suiteName) {
+  const file = Bun.file(`${cons.PROMPTS_DIR}/${suiteName}`);
   try {
     return await file.json();
   } catch (e) {
-    throw new Error(`Suite file is invalid json \"${file.name}\"`);
+    throw new Error(`Suite invalid json \"${suiteName}\"`);
   }
 }
 
-export async function validateSuiteSpecFields(spec) {
+export async function validateSuiteFields(spec) {
   validateField("version", spec.version, "number");
   validateField("prompt", spec.prompt, "string");
   validateField("goals", spec.goals, "array");

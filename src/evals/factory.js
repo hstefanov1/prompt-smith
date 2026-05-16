@@ -1,8 +1,8 @@
-// Build result payload
+// Factory and builder methods
 import { start, done } from "../utils/printer";
 
-export function buildNewResult(version, prompt, score, passed, goals) {
-  start("build-result");
+export function createResultPayload(version, prompt, score, passed, goals) {
+  start("result-payload");
 
   // validate result fields
   if (score === undefined) {
@@ -27,7 +27,7 @@ export function buildNewResult(version, prompt, score, passed, goals) {
     }
   }
 
-  done();
+  done(`v${version}`);
   return {
     version,
     prompt,
@@ -37,28 +37,25 @@ export function buildNewResult(version, prompt, score, passed, goals) {
   };
 }
 
-export function buildNewFilename(suiteName, nextVersion) {
-  start("build-filename");
-
+export function createFilename(suiteName, version) {
   let result;
 
   // check for already existing version
   const match = suiteName.toLowerCase().match(/^(\S+)-v(\d+)\.json$/);
   if (match) {
     const name = match[1];
-    result = `${name}-v${nextVersion}.json`;
+    result = `${name}-v${version}.json`;
   } else {
     // no version found
     const name = suiteName.toLowerCase().replace(".json", "");
-    result = `${name}-v${nextVersion}.json`;
+    result = `${name}-v${version}.json`;
   }
 
-  done(`${result}`);
   return result;
 }
 
-export function buildNewPrompt(spec) {
-  start("build-prompt");
+export function createSuitePayload(spec) {
+  start("suite-payload");
   const result = {
     version: Math.abs(parseInt(spec.version)) + 1,
     prompt: spec.prompt,
