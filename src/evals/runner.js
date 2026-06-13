@@ -1,5 +1,5 @@
 // Eval logic
-import * as assistant from "../llm/assistant"
+import * as assistant from "../llm/assistant";
 import * as factory from "./factory";
 import * as writer from "./writer";
 
@@ -12,5 +12,5 @@ export async function run(suiteName, suiteSpec) {
   const goals = resSpec.goals;
 
   const payload = factory.createResultPayload(version, prompt, score, passed, goals);
-  await writer.createResultFile(suiteName, payload)
+  await writer.createResultFile(suiteName, payload);
 }

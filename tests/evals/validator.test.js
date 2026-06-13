@@ -4,13 +4,15 @@ import * as validator from "../../src/evals/validator";
 describe("validateSuiteHasNoResultFile", () => {
   test("with no existing file", async () => {
     await expect(validator.validateSuiteHasNoResultFile(undefined)).resolves.toBeUndefined();
-    await expect(validator.validateSuiteHasNoResultFile("nonExistentResult")).resolves.toBeUndefined();
+    await expect(
+      validator.validateSuiteHasNoResultFile("nonExistentResult"),
+    ).resolves.toBeUndefined();
   });
 
   test("with existing file", async () => {
-    await expect(validator.validateSuiteHasNoResultFile("quantum-explanation-v1.json")).rejects.toThrow(
-      'Suite "quantum-explanation-v1.json" already evaluated',
-    );
+    await expect(
+      validator.validateSuiteHasNoResultFile("quantum-explanation-v1.json"),
+    ).rejects.toThrow('Suite "quantum-explanation-v1.json" already evaluated');
   });
 });
 
@@ -24,9 +26,7 @@ describe("validateSuiteName", () => {
 
 describe("validateSuiteFile", () => {
   test("with no existing file", () => {
-    expect(() => validator.validateSuiteFile(undefined)).toThrow(
-      'Suite not found "undefined"',
-    );
+    expect(() => validator.validateSuiteFile(undefined)).toThrow('Suite not found "undefined"');
 
     expect(() => validator.validateSuiteFile("nonExistentSuite")).toThrow(
       `Suite not found "nonExistentSuite"`,
@@ -36,9 +36,7 @@ describe("validateSuiteFile", () => {
 
 describe("validateSuiteSpec", () => {
   test("when file is invalid json", () => {
-    expect(() => validator.validateSuiteSpec(undefined)).toThrow(
-      'Suite invalid json "undefined"',
-    );
+    expect(() => validator.validateSuiteSpec(undefined)).toThrow('Suite invalid json "undefined"');
   });
 
   test("when file is valid json", async () => {
@@ -48,17 +46,15 @@ describe("validateSuiteSpec", () => {
       prompt: "Explain quantum computing in simple terms.",
       goals: [
         { goal: "The response must be under 100 words" },
-        { goal: "The response must not use technical jargon" }
-      ]
+        { goal: "The response must not use technical jargon" },
+      ],
     });
   });
 });
 
 describe("validateSuiteFields", () => {
   test("when version is missing", async () => {
-    await expect(
-      validator.validateSuiteFields({ prompt: "test", goals: [] }),
-    ).rejects.toThrow();
+    await expect(validator.validateSuiteFields({ prompt: "test", goals: [] })).rejects.toThrow();
   });
 
   test("when prompt is missing", async () => {

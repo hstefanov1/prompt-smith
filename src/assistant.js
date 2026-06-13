@@ -1,1 +1,0 @@
-// Claude assistant

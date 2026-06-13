@@ -28,7 +28,7 @@ export default [
       "no-unused-vars": "warn",
 
       // Warn on console usage (useful for production hygiene)
-      "no-console": "warn"
-    }
-  }
+      "no-console": "warn",
+    },
+  },
 ];

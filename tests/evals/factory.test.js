@@ -12,7 +12,9 @@ describe("createResultPayload", () => {
   });
 
   test("with no passed", () => {
-    expect(() => builder.createResultPayload(1, "prompt", 1, undefined, undefined)).toThrow("Passed is required");
+    expect(() => builder.createResultPayload(1, "prompt", 1, undefined, undefined)).toThrow(
+      "Passed is required",
+    );
     expect(() => builder.createResultPayload(1, "prompt", 1, "anyNonBoolean", undefined)).toThrow(
       'Passed must be a boolean but is "anyNonBoolean"',
     );
@@ -43,7 +45,9 @@ describe("createResultPayload", () => {
   });
 
   test("with valid data", () => {
-    expect(builder.createResultPayload(1, "prompt", 2, false, [{ goal: "myGoal1", score: 2 }])).toEqual({
+    expect(
+      builder.createResultPayload(1, "prompt", 2, false, [{ goal: "myGoal1", score: 2 }]),
+    ).toEqual({
       version: 1,
       prompt: "prompt",
       score: 2,
@@ -74,13 +78,18 @@ describe("createFilename", () => {
 
 describe("createSuitePayload", () => {
   test("with score and passed", () => {
-    expect(builder.createSuitePayload({
-      version: 1,
-      score: 3,
-      passed: false,
-      prompt: "my prompt",
-      goals: [{ goal: "first goal", score: 1 }, { goal: "second goal", score: 2 }],
-    })).toEqual({
+    expect(
+      builder.createSuitePayload({
+        version: 1,
+        score: 3,
+        passed: false,
+        prompt: "my prompt",
+        goals: [
+          { goal: "first goal", score: 1 },
+          { goal: "second goal", score: 2 },
+        ],
+      }),
+    ).toEqual({
       version: 2,
       prompt: "my prompt",
       goals: [{ goal: "first goal" }, { goal: "second goal" }],
