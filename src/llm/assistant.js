@@ -40,14 +40,14 @@ export async function chat(suiteSpec) {
   const response = await client.messages.create({
     model: MODEL,
     system: PCTF_FRAMEWORK,
-    max_tokens: MAX_TOKENS,
+    max_tokens: parseInt(MAX_TOKENS),
     messages: [
       {
         role: "user",
         content: JSON.stringify(suiteSpec),
       },
     ],
-    temperature: TEMPERATURE,
+    temperature: parseInt(TEMPERATURE),
   });
   done();
 
