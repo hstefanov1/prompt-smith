@@ -7,7 +7,9 @@
   "scripts": {
     "verify": "bun install && bun test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.1"
+  },
   "devDependencies": {},
   "license": "MIT"
 }
