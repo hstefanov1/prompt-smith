@@ -94,6 +94,7 @@ check_dependencies() {
 
   label "bun"
   if ! command -v bun >/dev/null 2>&1; then
+    red "error"
     error "bun not found in \$PATH (Install from: https://bun.com/docs/installation)"
   fi
   green "v$(bun --version)"
