@@ -27,7 +27,7 @@ export function createResultPayload(version, prompt, score, passed, goals) {
     }
   }
 
-  done(`v${version}`);
+  done();
   return {
     version,
     prompt,

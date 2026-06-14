@@ -43,7 +43,7 @@ describe("validateSuiteSpec", () => {
     const result = await validator.validateSuiteSpec("quantum-explanation-v1.json");
     expect(result).toEqual({
       version: 1,
-      prompt: "Explain quantum computing in simple terms.",
+      prompt: "Explain quantum computing in simple terms",
       goals: [
         { goal: "The response must be under 100 words" },
         { goal: "The response must not use technical jargon" },

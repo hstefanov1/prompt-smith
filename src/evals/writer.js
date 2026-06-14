@@ -15,7 +15,7 @@ export async function createResultFile(suiteName, payload) {
   const serialized = serialize(payload);
   const path = `${cons.RESULTS_DIR}/${suiteName}`;
   await createFile(path, serialized);
-  done(`${suiteName}`);
+  done();
 }
 
 export async function createFile(path, content) {

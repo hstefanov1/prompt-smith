@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "prompt": "Explain quantum computing in simple terms.",
+  "prompt": "Explain quantum computing in simple terms",
   "score": 6,
   "passed": false,
   "goals": [
