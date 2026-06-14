@@ -1,11 +1,12 @@
 // Eval logic
 import * as assistant from "../llm/assistant";
 import * as printer from "../utils/printer";
+import * as system from "../llm/system";
 import * as factory from "./factory";
 import * as writer from "./writer";
 
-export async function run(suiteName, suiteSpec) {
-  const resSpec = await assistant.chat(suiteSpec);
+export async function evaluate(suiteName, suiteSpec) {
+  const resSpec = await assistant.chat(suiteSpec, system.EVALUATE);
   const version = resSpec.version;
   const prompt = resSpec.prompt;
   const score = resSpec.score;
@@ -28,4 +29,12 @@ export async function run(suiteName, suiteSpec) {
     }
   });
   console.log(`------------------------------------------`);
+}
+
+export async function refineManual() {
+  return prompt("\nEnter revised prompt:");
+}
+
+export async function refineAuto(suiteSpec) {
+  throw new Error("Not implemented");
 }

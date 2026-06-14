@@ -19,10 +19,21 @@ async function main(suiteName) {
     await validator.validateSuiteFields(suiteSpec);
 
     // evaluate suite
-    await runner.run(suiteName, suiteSpec);
+    await runner.evaluate(suiteName, suiteSpec);
 
-    if (!prompter.isNeedRefinement()) {
-      return; // user is happy
+    const action = prompter.chooseAction();
+    let newPrompt;
+    switch (action) {
+      case "m":
+        newPrompt = await runner.refineManual();
+        break;
+      case "a":
+        newPrompt = await runner.refine(suiteSpec);
+        break;
+      case "e":
+        return; // user is happy
+      default:
+        throw new Error(`Action "${action}" is not implemented`);
     }
 
     // need refinement:
@@ -32,6 +43,7 @@ async function main(suiteName) {
     printer.info("suite-generation", "started");
     const result = Bun.file(`${cons.RESULTS_DIR}/${suiteName}`);
     const resultSpec = await result.json();
+    resultSpec.prompt = newPrompt; // updated prompt
     const newSuite = factory.createSuitePayload(resultSpec);
     const newSuiteName = factory.createFilename(suiteName, newSuite.version);
     await writer.createSuiteFile(newSuiteName, newSuite);

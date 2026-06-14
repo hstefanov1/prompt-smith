@@ -1,7 +1,6 @@
 // Anthropic client wrapper
 import Anthropic from "@anthropic-ai/sdk";
 import { start, done } from "../utils/printer";
-import { PCTF_FRAMEWORK } from "./pctf";
 
 export function validateConfigs(apiKey, model, maxTokens, temperature) {
   if (!apiKey) {
@@ -26,7 +25,7 @@ export function validateConfigs(apiKey, model, maxTokens, temperature) {
   }
 }
 
-export async function chat(suiteSpec) {
+export async function chat(suiteSpec, system) {
   start("claude-configs");
   const API_KEY = process.env.ANTHROPIC_API_KEY;
   const MODEL = process.env.ANTHROPIC_MODEL;
@@ -39,7 +38,7 @@ export async function chat(suiteSpec) {
   const client = new Anthropic({ apiKey: API_KEY });
   const response = await client.messages.create({
     model: MODEL,
-    system: PCTF_FRAMEWORK,
+    system: `${system}`,
     max_tokens: parseInt(MAX_TOKENS),
     messages: [
       {

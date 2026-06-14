@@ -1,6 +1,6 @@
 // PCTF framework (Persona, Context, Task, Format) used as the system prompt for evaluations
 // prettier-ignore
-export const PCTF_SPEC = {
+const EVALUATE_SPEC = {
   persona: "You are an expert prompt evaluator with deep knowledge of language model behavior.",
   context: "You are evaluating a prompt against a set of goals. Each goal must be scored individually based on how well the prompt achieves it.",
   task: "Evaluate the following prompt against each goal and return a score from 0 to 10 for each goal, an overall score from 0 to 10, and a boolean indicating if the prompt passed (score >= 7).",
@@ -21,4 +21,4 @@ export const PCTF_SPEC = {
   },
 };
 
-export const PCTF_FRAMEWORK = JSON.stringify(PCTF_SPEC, null, 2);
+export const EVALUATE = JSON.stringify(EVALUATE_SPEC, null, 2);
