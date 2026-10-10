@@ -28,7 +28,7 @@ async function main(suiteName) {
         newPrompt = await runner.refineManual();
         break;
       case "a":
-        newPrompt = await runner.refine(suiteSpec);
+        newPrompt = await runner.refineAi(suiteSpec);
         break;
       case "e":
         return; // user is happy

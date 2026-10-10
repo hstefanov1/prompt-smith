@@ -15,3 +15,9 @@ export function chooseAction() {
  [a] Auto-refine prompt
  [e] Exit\n`);
 }
+
+export function chooseAction2() {
+  return action(`\nCHOOSE ACTION
+ [e] Evaluate ai-refined version
+ [m] Manually revise prompt\n`);
+}

@@ -1,5 +1,6 @@
 // Eval logic
 import * as assistant from "../llm/assistant";
+import * as prompter from "../utils/prompter";
 import * as printer from "../utils/printer";
 import * as system from "../llm/system";
 import * as factory from "./factory";
@@ -35,6 +36,27 @@ export async function refineManual() {
   return prompt("\nEnter revised prompt:");
 }
 
-export async function refineAuto(suiteSpec) {
-  throw new Error("Not implemented");
+export async function refineAi(suiteSpec) {
+  const resSpec = await assistant.chat(suiteSpec, system.IMPROVE);
+  const prompt = resSpec.prompt;
+  const goals = resSpec.goals;
+
+  console.log(`\n--------------- AI-REFINED ---------------`);
+  printer.info("Prompt", prompt);
+  goals.forEach((g) => {
+    printer.info("Goal", g.goal);
+    printer.info(" Change", g.change);
+    printer.info(" Rationale", g.rationale);
+  });
+  console.log(`------------------------------------------`);
+
+  const action = prompter.chooseAction2();
+  switch (action) {
+    case "m":
+      return await refineManual();
+    case "e":
+      return prompt;
+    default:
+      throw new Error(`Action "${action}" is not implemented`);
+  }
 }
