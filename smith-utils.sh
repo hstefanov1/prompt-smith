@@ -20,7 +20,7 @@ mkdir -p "$PROMPTS_DIR" "$RESULTS_DIR"
 red() { printf "\033[1;31m%s\033[0m\n" "$1"; }
 blue() { printf "\033[1;34m%s\033[0m\n" "$1"; }
 green() { printf "\033[0;32m%s\033[0m\n" "$1"; }
-yellow() { printf "\033[1;33m%s\033[0m\n" "$1"; }
+yellow() { printf "\033[0;33m%s\033[0m\n" "$1"; }
 magenta() { printf "\033[0;35m%s\033[0m\n" "$1"; }
 default() { printf "\033[0m%s\033[0m\n" "$1"; }
 
@@ -45,7 +45,7 @@ error() {
   #   $1 - The error message to display.
   #        If it starts with 'Failed', prints 'error' before.
   if [[ "$1" =~ [Ff]ailed ]]; then
-    red "error"
+    red "Error"
   fi
   echo
   red "ERROR: $1"
@@ -92,26 +92,26 @@ select_option() {
 check_dependencies() {
   banner "CHECKING DEPENDENCIES"
 
-  label "bun"
+  label "Bun"
   if ! command -v bun >/dev/null 2>&1; then
-    red "error"
+    red "Error"
     error "bun not found in \$PATH (Install from: https://bun.com/docs/installation)"
   fi
   green "v$(bun --version)"
 
-  label "entry-point"
+  label "EntryPoint"
   if [[ ! -f "$ENTRY_POINT" ]]; then
-    red "error"
+    red "Error"
     error "entry point not found \"$ENTRY_POINT\""
   fi
   green "$ENTRY_POINT"
 
-  label "suite-name"
+  label "SuiteName"
   if [[ ! "$SUITE_NAME" ]]; then
-    yellow "not provided"
+    yellow "Not Provided"
     choose_suite
   elif [[ ! -f "$PROMPTS_DIR/$SUITE_NAME" ]]; then
-    yellow "$SUITE_NAME (not found)"
+    yellow "$SUITE_NAME (Not Found)"
     choose_suite
   else
     green "$SUITE_NAME"

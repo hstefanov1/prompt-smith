@@ -36,20 +36,23 @@ async function main(suiteName) {
         throw new Error(`Action "${action}" is not implemented`);
     }
 
+    if (!newPrompt || newPrompt.trim() === "") {
+      console.error("Error");
+      throw new Error("New prompt not set");
+    }
+
     // need refinement:
     // 1) load result and extract a clean prompt with incremented version
     // 2) serialize and save it as a new suite file in the prompts folder
     // 3) re-run the eval loop with the new suite
-    printer.info("suite-generation", "started");
+    printer.title("CREATING SUITE");
     const result = Bun.file(`${cons.RESULTS_DIR}/${suiteName}`);
     const resultSpec = await result.json();
     resultSpec.prompt = newPrompt; // updated prompt
     const newSuite = factory.createSuitePayload(resultSpec);
     const newSuiteName = factory.createFilename(suiteName, newSuite.version);
     await writer.createSuiteFile(newSuiteName, newSuite);
-
     suiteName = newSuiteName;
-    printer.info("suite-generation", "completed\n");
   }
 }
 

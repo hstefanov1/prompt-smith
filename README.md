@@ -1,6 +1,6 @@
 # PROMPT-SMITH
 
-A toolkit for engineering, versioning, and evaluating prompts with Claude.
+Toolkit for engineering, versioning, and evaluating prompts with Claude.
 
 ## Requirements
 

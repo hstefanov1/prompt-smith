@@ -4,20 +4,20 @@ export function action(message) {
   const actions = [...message.matchAll(/\[(.*?)\]/g)].map((match) => match[1]);
   let action;
   do {
-    action = prompt(">");
+    action = prompt(`\x1b[35m>\x1b[0m`);
   } while (!actions.includes(action));
   return action;
 }
 
 export function chooseAction() {
-  return action(`\nCHOOSE ACTION
+  return action(`\n\x1b[35mCHOOSE ACTION
  [m] Manually revise prompt
- [a] Auto-refine prompt
- [e] Exit\n`);
+ [a] AI-refine prompt
+ [e] Exit\x1b[0m\n`);
 }
 
 export function chooseAction2() {
-  return action(`\nCHOOSE ACTION
- [e] Evaluate ai-refined version
- [m] Manually revise prompt\n`);
+  return action(`\n\x1b[35mCHOOSE ACTION
+ [e] Evaluate AI-refined version
+ [m] Manually revise prompt\x1b[0m\n`);
 }

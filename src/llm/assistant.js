@@ -1,6 +1,6 @@
 // Anthropic client wrapper
 import Anthropic from "@anthropic-ai/sdk";
-import { start, done } from "../utils/printer";
+import * as printer from "../utils/printer";
 
 export function validateConfigs(apiKey, model, maxTokens, temperature) {
   if (!apiKey) {
@@ -26,15 +26,17 @@ export function validateConfigs(apiKey, model, maxTokens, temperature) {
 }
 
 export async function chat(suiteSpec, system) {
-  start("claude-configs");
+  printer.title("ASKING ASSISTANT");
+
+  printer.start("Configurations");
   const API_KEY = process.env.ANTHROPIC_API_KEY;
   const MODEL = process.env.ANTHROPIC_MODEL;
   const MAX_TOKENS = process.env.ANTHROPIC_MAX_TOKENS;
   const TEMPERATURE = process.env.ANTHROPIC_TEMPERATURE;
   validateConfigs(API_KEY, MODEL, MAX_TOKENS, TEMPERATURE);
-  done();
+  printer.done();
 
-  start("claude-reasoning");
+  printer.start("Reasoning");
   const client = new Anthropic({ apiKey: API_KEY });
   const response = await client.messages.create({
     model: MODEL,
@@ -48,11 +50,11 @@ export async function chat(suiteSpec, system) {
     ],
     temperature: parseInt(TEMPERATURE),
   });
-  done();
+  printer.done();
 
-  start("claude-response");
+  printer.start("Parsing");
   const result = JSON.parse(response.content[0].text);
-  done();
+  printer.done();
 
   return result;
 }

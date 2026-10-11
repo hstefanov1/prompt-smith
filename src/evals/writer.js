@@ -3,7 +3,7 @@ import { start, done } from "../utils/printer";
 import * as cons from "../constants";
 
 export async function createSuiteFile(suiteName, payload) {
-  start("suite-file");
+  start("File");
   const serialized = serialize(payload);
   const path = `${cons.PROMPTS_DIR}/${suiteName}`;
   await createFile(path, serialized);
@@ -11,7 +11,7 @@ export async function createSuiteFile(suiteName, payload) {
 }
 
 export async function createResultFile(suiteName, payload) {
-  start("result-file");
+  start("Exporting");
   const serialized = serialize(payload);
   const path = `${cons.RESULTS_DIR}/${suiteName}`;
   await createFile(path, serialized);

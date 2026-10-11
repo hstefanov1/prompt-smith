@@ -31,11 +31,11 @@ const REFINE_SPEC = {
     description: "Respond only with a valid JSON object, no preamble or markdown. Do not include \`\`\`json",
     schema: {
       prompt: "the improved prompt, ready to be evaluated",
-      goals: [
+      changes: [
         {
-          goal: "the goal this change addresses, as received",
           change: "short description of what was changed",
-          rationale: "why this change should improve the score for this goal",
+          goals: ["the goals this change addresses, as received"],
+          reason: "why this change should improve the score for those goals",
         },
       ],
     },

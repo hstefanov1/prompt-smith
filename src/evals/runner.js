@@ -17,38 +17,41 @@ export async function evaluate(suiteName, suiteSpec) {
   const payload = factory.createResultPayload(version, prompt, score, passed, goals);
   await writer.createResultFile(suiteName, payload);
 
-  console.log(`\n--------------- EVALUATION ---------------`);
+  printer.title("RESULT EVALUATION");
   printer.info("Prompt", prompt);
-  printer.info("Result", `${passed ? "Passed" : "Failed"}`);
-  printer.info("Overall Score", `${score}/10`);
-  console.log("Goal Scores:");
+  if (passed) {
+    printer.success("Result", "✓ PASS");
+    printer.success("Score", `${score}/10`);
+  } else {
+    printer.warn("Result", "✗ FAIL");
+    printer.warn("OverallScore", `${score}/10`);
+  }
   goals.forEach((g) => {
     if (g.score >= 7) {
-      printer.info(` ✓ ${g.score}/10`, g.goal);
+      printer.success(` ✓ ${g.score}/10`, g.goal);
     } else {
-      printer.info(` ✗ ${g.score}/10`, g.goal);
+      printer.warn(` ✗ ${g.score}/10`, g.goal);
     }
   });
-  console.log(`------------------------------------------`);
 }
 
 export async function refineManual() {
-  return prompt("\nEnter revised prompt:");
+  return prompt(`\n\x1b[35mEnter revised prompt:\x1b[0m`);
 }
 
 export async function refineAi(suiteSpec) {
-  const resSpec = await assistant.chat(suiteSpec, system.IMPROVE);
+  const resSpec = await assistant.chat(suiteSpec, system.REFINE);
   const prompt = resSpec.prompt;
-  const goals = resSpec.goals;
+  const changes = resSpec.changes;
 
-  console.log(`\n--------------- AI-REFINED ---------------`);
-  printer.info("Prompt", prompt);
-  goals.forEach((g) => {
-    printer.info("Goal", g.goal);
-    printer.info(" Change", g.change);
-    printer.info(" Rationale", g.rationale);
+  printer.info("ListChanges", changes.length);
+  changes.forEach((c, i) => {
+    printer.info(`Item#${i + 1}`, c.change);
+    printer.info(` Change`, c.change);
+    printer.info(` Reason`, c.reason);
+    printer.info(` Solve`, c.goals);
   });
-  console.log(`------------------------------------------`);
+  printer.success("PromptRefined", prompt);
 
   const action = prompter.chooseAction2();
   switch (action) {

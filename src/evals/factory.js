@@ -2,7 +2,7 @@
 import { start, done } from "../utils/printer";
 
 export function createResultPayload(version, prompt, score, passed, goals) {
-  start("result-payload");
+  start("Validating");
 
   // validate result fields
   if (score === undefined) {
@@ -55,13 +55,11 @@ export function createFilename(suiteName, version) {
 }
 
 export function createSuitePayload(spec) {
-  start("suite-payload");
   const result = {
     version: Math.abs(parseInt(spec.version)) + 1,
     prompt: spec.prompt,
     goals: spec.goals.map(({ goal }) => ({ goal })),
   };
 
-  done(`v${result.version}`);
   return result;
 }
